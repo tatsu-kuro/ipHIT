@@ -10,6 +10,7 @@ import MultipeerConnectivity
 import CoreMotion
 final class SendViewController: /*UITable*/UIViewController {
 
+    @IBOutlet weak var sendingDataLabel: UILabel!
     private var messages = [String]()
     let motionManager = CMMotionManager()
     var recordStart = CFAbsoluteTimeGetCurrent()
