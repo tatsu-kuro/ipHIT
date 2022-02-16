@@ -9,7 +9,8 @@ import UIKit
 import MultipeerConnectivity
 import CoreMotion
 final class SendViewController: /*UITable*/UIViewController {
-
+    @IBOutlet weak var didChangeLabel: UILabel!
+    
     @IBOutlet weak var sendingDataLabel: UILabel!
     private var messages = [String]()
     let motionManager = CMMotionManager()
@@ -33,6 +34,7 @@ final class SendViewController: /*UITable*/UIViewController {
         browser.delegate = self
         browser.startBrowsingForPeers()
         recordStart = CFAbsoluteTimeGetCurrent()
+        sendingDataLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 15, weight: .medium)
         setMotion()
     }
 
@@ -51,11 +53,36 @@ final class SendViewController: /*UITable*/UIViewController {
    
          motionManager.startDeviceMotionUpdates(to: OperationQueue.current!, withHandler: { [self] (motion, error) in
              guard let motion = motion, error == nil else { return }
-             count += 1
-             let str = String(format:"%04d-%.2f: %.2f,%.2f,%.2f",count,CFAbsoluteTimeGetCurrent()-recordStart,motion.rotationRate.x,motion.rotationRate.y,motion.rotationRate.z)
+//             count += 1
+             var xf="-"
+             var yf="-"
+             var zf="-"
+             var x=motion.rotationRate.x
+             var y=motion.rotationRate.y
+             var z=motion.rotationRate.z
+             if motion.rotationRate.x >= 0{
+                 xf="+"
+             }
+             if motion.rotationRate.y >= 0{
+                 yf="+"
+             }
+             if motion.rotationRate.z >= 0{
+                 zf="+"
+             }
+             x=abs(x)
+             y=abs(y)
+             z=abs(z)
+             let time=CFAbsoluteTimeGetCurrent()-recordStart
+             let str = String(format: "%04.2fsec:%@%.2f,%@%.2f,%@%.2f", time,xf,x,yf,y,zf,z)
+//             let str = String(format: "%.2fs:%.2f,%.2f,%.2f",time,motion.rotationRate.x,motion.rotationRate.y,motion.rotationRate.z)
+//             sendingDataLabel.text = str
+             
+//             let str = String(format:"%04d-%.2f: %.2f,%.2f,%.2f",count,CFAbsoluteTimeGetCurrent()-recordStart,motion.rotationRate.x,motion.rotationRate.y,motion.rotationRate.z)
              do{
                  try session.send(str.data(using: .utf8)!,toPeers: session.connectedPeers,with: .reliable)
-                 print(str)
+//                 print(str)
+                 sendingDataLabel.text = str
+
              }catch let error{
                  print(error.localizedDescription)
              }
@@ -89,16 +116,17 @@ extension SendViewController: MCSessionDelegate {
         let message: String
         switch state {
         case .connected:
-            message = "\(peerID.displayName) /connected."
+            message = "Send \(peerID.displayName) /connected."
         case .connecting:
-            message = "\(peerID.displayName) /connecting."
+            message = "Send \(peerID.displayName) /connecting."
         case .notConnected:
-            message = "\(peerID.displayName) /notConnected."
+            message = "Send \(peerID.displayName) /notConnected."
         @unknown default:
-            message = "\(peerID.displayName) /default."
+            message = "Send \(peerID.displayName) /default."
         }
-        DispatchQueue.main.async {
-            print(message)
+        DispatchQueue.main.async { [self] in
+//            print(message)
+            didChangeLabel.text = message
         }
     }
 

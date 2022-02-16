@@ -13,6 +13,8 @@ import CoreMotion
 //    final class SendViewController: /*UITable*/UIViewController {
 class ReceiveViewController: UIViewController {
     
+    @IBOutlet weak var didChangeLabel: UILabel!
+    @IBOutlet weak var receivingDataLabel: UILabel!
     private var messages = [String]()
 //    let motionManager = CMMotionManager()
 //    var recordStart:Double=0// = CFAbsoluteTimeGetCurrent()
@@ -48,7 +50,7 @@ class ReceiveViewController: UIViewController {
 //    func setMotion(){
 //        guard motionManager.isDeviceMotionAvailable else { return }
 //        motionManager.deviceMotionUpdateInterval = 1 / 100//が最速の模様
-//        
+//
 //        motionManager.startDeviceMotionUpdates(to: OperationQueue.current!, withHandler: { [self] (motion, error) in
 //            guard let motion = motion, error == nil else { return }
 //            let str = String(format:"%.2f,%.2f,%.2f",motion.rotationRate.x,motion.rotationRate.y,motion.rotationRate.z)
@@ -88,16 +90,17 @@ extension ReceiveViewController: MCSessionDelegate {
         let message: String
         switch state {
         case .connected:
-            message = "\(peerID.displayName) /connected."
+            message = "Receive \(peerID.displayName) /connected."
         case .connecting:
-            message = "\(peerID.displayName) /connecting."
+            message = "Receive \(peerID.displayName) /connecting."
         case .notConnected:
-            message = "\(peerID.displayName) /notConnected."
+            message = "Receive \(peerID.displayName) /notConnected."
         @unknown default:
-            message = "\(peerID.displayName) /default."
+            message = "Receive \(peerID.displayName) /default."
         }
         DispatchQueue.main.async {
-            print(message)
+//            print(message)
+            self.didChangeLabel.text = message
         }
     }
     
@@ -105,8 +108,12 @@ extension ReceiveViewController: MCSessionDelegate {
         guard let message = String(data: data, encoding: .utf8) else {
             return
         }
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [self] in
             print(message)
+            OperationQueue.main.addOperation({
+                // UI の更新処理を記述する
+                receivingDataLabel.text = message
+            })
         }
     }
     
