@@ -112,6 +112,7 @@ extension ReceiveViewController: MCSessionDelegate {
             print(message)
             OperationQueue.main.addOperation({
                 // UI の更新処理を記述する
+                print(message)
                 receivingDataLabel.text = message
             })
         }

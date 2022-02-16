@@ -73,14 +73,14 @@ final class SendViewController: /*UITable*/UIViewController {
              y=abs(y)
              z=abs(z)
              let time=CFAbsoluteTimeGetCurrent()-recordStart
-             let str = String(format: "%04.2fsec:%@%.2f,%@%.2f,%@%.2f", time,xf,x,yf,y,zf,z)
+             let str = String(format: "%04.3fsec:%@%.2f,%@%.2f,%@%.2f", time,xf,x,yf,y,zf,z)
 //             let str = String(format: "%.2fs:%.2f,%.2f,%.2f",time,motion.rotationRate.x,motion.rotationRate.y,motion.rotationRate.z)
 //             sendingDataLabel.text = str
              
 //             let str = String(format:"%04d-%.2f: %.2f,%.2f,%.2f",count,CFAbsoluteTimeGetCurrent()-recordStart,motion.rotationRate.x,motion.rotationRate.y,motion.rotationRate.z)
              do{
                  try session.send(str.data(using: .utf8)!,toPeers: session.connectedPeers,with: .reliable)
-//                 print(str)
+                 print(str)
                  sendingDataLabel.text = str
 
              }catch let error{
