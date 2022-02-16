@@ -13,6 +13,8 @@
 		69A6E67227BBF060009059CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69A6E67027BBF060009059CE /* Main.storyboard */; };
 		69A6E67427BBF062009059CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 69A6E67327BBF062009059CE /* Assets.xcassets */; };
 		69A6E67727BBF062009059CE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69A6E67527BBF062009059CE /* LaunchScreen.storyboard */; };
+		69A6E67F27BBF08B009059CE /* SendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A6E67E27BBF08B009059CE /* SendViewController.swift */; };
+		69A6E68127BC64AA009059CE /* ReceiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A6E68027BC64AA009059CE /* ReceiveViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		69A6E67327BBF062009059CE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		69A6E67627BBF062009059CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		69A6E67827BBF062009059CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		69A6E67E27BBF08B009059CE /* SendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendViewController.swift; sourceTree = "<group>"; };
+		69A6E68027BC64AA009059CE /* ReceiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,10 +60,12 @@
 		69A6E66927BBF060009059CE /* ipHIT */ = {
 			isa = PBXGroup;
 			children = (
+				69A6E67E27BBF08B009059CE /* SendViewController.swift */,
 				69A6E66A27BBF060009059CE /* AppDelegate.swift */,
 				69A6E66C27BBF060009059CE /* SceneDelegate.swift */,
 				69A6E66E27BBF060009059CE /* ViewController.swift */,
 				69A6E67027BBF060009059CE /* Main.storyboard */,
+				69A6E68027BC64AA009059CE /* ReceiveViewController.swift */,
 				69A6E67327BBF062009059CE /* Assets.xcassets */,
 				69A6E67527BBF062009059CE /* LaunchScreen.storyboard */,
 				69A6E67827BBF062009059CE /* Info.plist */,
@@ -140,6 +146,8 @@
 			files = (
 				69A6E66F27BBF060009059CE /* ViewController.swift in Sources */,
 				69A6E66B27BBF060009059CE /* AppDelegate.swift in Sources */,
+				69A6E68127BC64AA009059CE /* ReceiveViewController.swift in Sources */,
+				69A6E67F27BBF08B009059CE /* SendViewController.swift in Sources */,
 				69A6E66D27BBF060009059CE /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
