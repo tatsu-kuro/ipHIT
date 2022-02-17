@@ -16,17 +16,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="data" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="noR-GY-oFw">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="data" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="noR-GY-oFw">
                                 <rect key="frame" x="10" y="428" width="394" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="6nt-k7-vri"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="0.0"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qx6-hL-8q7">
-                                <rect key="frame" x="20" y="64" width="374" height="40"/>
+                                <rect key="frame" x="10" y="64" width="384" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="IqH-fe-Fj5"/>
                                 </constraints>
@@ -58,7 +58,7 @@
                             <constraint firstItem="43Q-Xn-7C2" firstAttribute="trailing" secondItem="VHR-KX-X1p" secondAttribute="trailing" constant="20" id="LHp-3R-Zo8"/>
                             <constraint firstItem="noR-GY-oFw" firstAttribute="centerY" secondItem="2I4-Jw-IR3" secondAttribute="centerY" id="ZZA-Km-Ust"/>
                             <constraint firstItem="43Q-Xn-7C2" firstAttribute="trailing" secondItem="noR-GY-oFw" secondAttribute="trailing" constant="10" id="orW-2M-WYi"/>
-                            <constraint firstItem="qx6-hL-8q7" firstAttribute="leading" secondItem="43Q-Xn-7C2" secondAttribute="leading" constant="20" id="wcO-zN-P3o"/>
+                            <constraint firstItem="qx6-hL-8q7" firstAttribute="leading" secondItem="43Q-Xn-7C2" secondAttribute="leading" constant="10" id="wcO-zN-P3o"/>
                             <constraint firstItem="43Q-Xn-7C2" firstAttribute="trailing" secondItem="qx6-hL-8q7" secondAttribute="trailing" constant="20" id="xLn-jV-KSn"/>
                         </constraints>
                     </view>
@@ -147,7 +147,7 @@
                                     <segue destination="ta7-sc-3UB" kind="unwind" unwindAction="unwind:" id="otX-6q-HLJ"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="data" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Xj-VF-UeP">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="data" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Xj-VF-UeP">
                                 <rect key="frame" x="10" y="752" width="394" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="fFw-Qs-ZIE"/>
@@ -157,7 +157,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Receive" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qsv-Wt-5kb">
-                                <rect key="frame" x="20" y="64" width="374" height="40"/>
+                                <rect key="frame" x="10" y="64" width="384" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="X6r-SG-YUw"/>
                                 </constraints>
@@ -169,7 +169,7 @@
                         <viewLayoutGuide key="safeArea" id="FdR-HW-WGM"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Qsv-Wt-5kb" firstAttribute="leading" secondItem="FdR-HW-WGM" secondAttribute="leading" constant="20" id="1Li-vT-Q28"/>
+                            <constraint firstItem="Qsv-Wt-5kb" firstAttribute="leading" secondItem="FdR-HW-WGM" secondAttribute="leading" constant="10" id="1Li-vT-Q28"/>
                             <constraint firstItem="FdR-HW-WGM" firstAttribute="trailing" secondItem="HC1-jP-qfu" secondAttribute="trailing" constant="20" id="5qc-t7-mJt"/>
                             <constraint firstItem="FdR-HW-WGM" firstAttribute="bottom" secondItem="HC1-jP-qfu" secondAttribute="bottom" constant="20" id="Gb8-iQ-Xdl"/>
                             <constraint firstItem="Qsv-Wt-5kb" firstAttribute="top" secondItem="FdR-HW-WGM" secondAttribute="top" constant="20" id="Io2-kf-rTo"/>

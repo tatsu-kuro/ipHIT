@@ -40,40 +40,42 @@ final class SendViewController: /*UITable*/UIViewController {
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-
+        motionManager.stopDeviceMotionUpdates()
         // たまに切れない時があるのでここで切断
         browser.stopBrowsingForPeers()
         advertiser.stopAdvertisingPeer()
         session.disconnect()
     }
-    var count:Int = 0
+
      func setMotion(){
          guard motionManager.isDeviceMotionAvailable else { return }
          motionManager.deviceMotionUpdateInterval = 1 / 100//が最速の模様
    
          motionManager.startDeviceMotionUpdates(to: OperationQueue.current!, withHandler: { [self] (motion, error) in
              guard let motion = motion, error == nil else { return }
-//             count += 1
-             var xf="-"
-             var yf="-"
-             var zf="-"
+
+//             var xf="-"
+//             var yf="-"
+//             var zf="-"
              var x=motion.rotationRate.x
              var y=motion.rotationRate.y
              var z=motion.rotationRate.z
-             if motion.rotationRate.x >= 0{
-                 xf="+"
-             }
-             if motion.rotationRate.y >= 0{
-                 yf="+"
-             }
-             if motion.rotationRate.z >= 0{
-                 zf="+"
-             }
-             x=abs(x)
-             y=abs(y)
-             z=abs(z)
+//             if motion.rotationRate.x >= 0{
+//                 xf="  "
+//             }
+//             if motion.rotationRate.y >= 0{
+//                 yf="  "
+//             }
+//             if motion.rotationRate.z >= 0{
+//                 zf="  "
+//             }
+//             x=abs(x)
+//             y=abs(y)
+//             z=abs(z)
              let time=CFAbsoluteTimeGetCurrent()-recordStart
-             let str = String(format: "%04.3fsec:%@%.2f,%@%.2f,%@%.2f", time,xf,x,yf,y,zf,z)
+             let str = String(format: "%04.3fsec:%.2f,%.2f,%.2f", time,x,y,z)
+
+//             let str = String(format: "%04.3fsec:%@%.2f,%@%.2f,%@%.2f", time,xf,x,yf,y,zf,z)
 //             let str = String(format: "%.2fs:%.2f,%.2f,%.2f",time,motion.rotationRate.x,motion.rotationRate.y,motion.rotationRate.z)
 //             sendingDataLabel.text = str
              

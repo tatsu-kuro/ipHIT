@@ -35,6 +35,8 @@ class ReceiveViewController: UIViewController {
         
         browser = MCNearbyServiceBrowser(peer: peerID, serviceType: serviceType)
         browser.delegate = self
+        receivingDataLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 15, weight: .medium)
+
         browser.startBrowsingForPeers()
     }
     
