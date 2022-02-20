@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="data" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="noR-GY-oFw">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="noR-GY-oFw">
                                 <rect key="frame" x="10" y="428" width="394" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="6nt-k7-vri"/>
@@ -154,7 +154,7 @@
                                     <segue destination="ta7-sc-3UB" kind="unwind" unwindAction="unwind:" id="otX-6q-HLJ"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="data" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Xj-VF-UeP">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Xj-VF-UeP">
                                 <rect key="frame" x="10" y="752" width="394" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="fFw-Qs-ZIE"/>
@@ -181,10 +181,17 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="d3I-28-lEh">
+                                <rect key="frame" x="20" y="802" width="264" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Trz-Cb-iw2"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="FdR-HW-WGM"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="HC1-jP-qfu" firstAttribute="leading" secondItem="d3I-28-lEh" secondAttribute="trailing" constant="10" id="1FX-0M-F7K"/>
                             <constraint firstItem="Qsv-Wt-5kb" firstAttribute="leading" secondItem="FdR-HW-WGM" secondAttribute="leading" constant="10" id="1Li-vT-Q28"/>
                             <constraint firstItem="FdR-HW-WGM" firstAttribute="trailing" secondItem="HC1-jP-qfu" secondAttribute="trailing" constant="20" id="5qc-t7-mJt"/>
                             <constraint firstItem="FdR-HW-WGM" firstAttribute="bottom" secondItem="HC1-jP-qfu" secondAttribute="bottom" constant="20" id="Gb8-iQ-Xdl"/>
@@ -192,7 +199,9 @@
                             <constraint firstItem="Qsv-Wt-5kb" firstAttribute="top" secondItem="FdR-HW-WGM" secondAttribute="top" constant="20" id="Io2-kf-rTo"/>
                             <constraint firstItem="JZt-4u-f6K" firstAttribute="leading" secondItem="FdR-HW-WGM" secondAttribute="leading" constant="10" id="PTp-Ti-y0d"/>
                             <constraint firstItem="FdR-HW-WGM" firstAttribute="trailing" secondItem="1Xj-VF-UeP" secondAttribute="trailing" constant="10" id="ZOM-0I-OET"/>
+                            <constraint firstItem="d3I-28-lEh" firstAttribute="leading" secondItem="FdR-HW-WGM" secondAttribute="leading" constant="20" id="a1b-b3-hPh"/>
                             <constraint firstItem="HC1-jP-qfu" firstAttribute="top" secondItem="1Xj-VF-UeP" secondAttribute="bottom" constant="10" id="bcX-9e-Nqe"/>
+                            <constraint firstItem="FdR-HW-WGM" firstAttribute="bottom" secondItem="d3I-28-lEh" secondAttribute="bottom" constant="20" id="hFf-m3-g2Z"/>
                             <constraint firstItem="FdR-HW-WGM" firstAttribute="trailing" secondItem="Qsv-Wt-5kb" secondAttribute="trailing" constant="20" id="ocU-PL-aP3"/>
                             <constraint firstItem="JZt-4u-f6K" firstAttribute="centerY" secondItem="taB-xA-fDC" secondAttribute="centerY" id="wFZ-qG-Rb1"/>
                             <constraint firstItem="1Xj-VF-UeP" firstAttribute="leading" secondItem="FdR-HW-WGM" secondAttribute="leading" constant="10" id="yaq-7j-TXq"/>
@@ -201,6 +210,7 @@
                     <navigationItem key="navigationItem" id="pq0-S2-ag8"/>
                     <connections>
                         <outlet property="didChangeLabel" destination="Qsv-Wt-5kb" id="Wkz-Nv-NJY"/>
+                        <outlet property="receiveDataImage" destination="d3I-28-lEh" id="ND4-Gt-KGi"/>
                         <outlet property="receivingDataLabel" destination="1Xj-VF-UeP" id="9r9-BG-MV6"/>
                         <outlet property="targetLabel" destination="JZt-4u-f6K" id="hmJ-Se-H4B"/>
                     </connections>
@@ -212,7 +222,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="kazu2" width="1793" height="2331"/>
+        <image name="kazu2" width="1760" height="2328"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

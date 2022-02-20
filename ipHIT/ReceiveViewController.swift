@@ -13,6 +13,7 @@ import CoreMotion
 //    final class SendViewController: /*UITable*/UIViewController {
 class ReceiveViewController: UIViewController {
     
+    @IBOutlet weak var receiveDataImage: UIImageView!
     @IBOutlet weak var targetLabel: UILabel!
     @IBOutlet weak var didChangeLabel: UILabel!
     @IBOutlet weak var receivingDataLabel: UILabel!
@@ -23,7 +24,7 @@ class ReceiveViewController: UIViewController {
     private var session: MCSession!
     private var advertiser: MCNearbyServiceAdvertiser!
     private var browser: MCNearbyServiceBrowser!
-    
+    var receiveDataImageRect:CGRect!
     override func viewDidLoad() {
         super.viewDidLoad()
         let peerID = MCPeerID(displayName: UIDevice.current.name)
@@ -39,53 +40,69 @@ class ReceiveViewController: UIViewController {
         receivingDataLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 15, weight: .medium)
 
         browser.startBrowsingForPeers()
+        drawCount=0
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        
         // たまに切れない時があるのでここで切断
         browser.stopBrowsingForPeers()
         advertiser.stopAdvertisingPeer()
         session.disconnect()
     }
-    
-//    func setMotion(){
-//        guard motionManager.isDeviceMotionAvailable else { return }
-//        motionManager.deviceMotionUpdateInterval = 1 / 100//が最速の模様
-//
-//        motionManager.startDeviceMotionUpdates(to: OperationQueue.current!, withHandler: { [self] (motion, error) in
-//            guard let motion = motion, error == nil else { return }
-//            let str = String(format:"%.2f,%.2f,%.2f",motion.rotationRate.x,motion.rotationRate.y,motion.rotationRate.z)
-//            do{
-//                try session.send(str.data(using: .utf8)!,toPeers: session.connectedPeers,with: .reliable)
-//                print(str)
-//            }catch let error{
-//                print(error.localizedDescription)
-//            }
-//            //             if self.recordStart == 0{
-//            //                 self.gyro.append(0)//CFAbsoluteTimeGetCurrent())
-//            //             }else{
-//            //                 self.gyro.append(CFAbsoluteTimeGetCurrent()-self.recordStart)
-//            //             }
-//            //             self.gyro.append(motion.rotationRate.y)//holizontal
-//            //             self.gyro.append(-motion.rotationRate.x*1.414)//verticalは４５度ズレているので、√２
-//        })
-//    }
-    //    self.gyro.append(CFAbsoluteTimeGetCurrent()-self.recStart)
-    
-    //    motionManager.stopDeviceMotionUpdates()//ここで止めたが良さそう。
-    
-    //    return String(format: "%.2f,%.2f,%.2f",x,y,z)
-    //    @objc private func sendMessage(_ sender: Any) {
-    //        let message = "\(session.myPeerID.displayName)からのメッセージ"
-    //        do {
-    //            try session.send(message.data(using: .utf8)!, toPeers: session.connectedPeers, with: .reliable)
-    //            print(message)
-    //        } catch let error {
-    //            print(error.localizedDescription)
-    //        }
-    //    }
+    func drawBand(rectB: CGRect) {
+        let rectLayer = CAShapeLayer.init()
+        rectLayer.strokeColor = UIColor.black.cgColor
+        rectLayer.fillColor = UIColor.black.cgColor
+        rectLayer.lineWidth = 0
+        rectLayer.path = UIBezierPath(rect:rectB).cgPath
+        self.view.layer.addSublayer(rectLayer)
+    }
+    var drawCount:Int=0
+    var ww:CGFloat=0
+    var wh:CGFloat=0
+    var x0:CGFloat=0
+    var y0:CGFloat=0
+    var xMid:CGFloat=0
+    func drawReceiveData(x:Double,y:Double,z:Double){
+        if drawCount > 0{
+            //            view.layer.sublayers?.removeLast()
+            view.layer.sublayers?.removeLast()
+            view.layer.sublayers?.removeLast()
+            view.layer.sublayers?.removeLast()
+        }
+        drawCount += 1
+        var xd=x*10
+        var yd=y*10
+        var zd=z*10
+        if xd > ww/2{
+            xd = ww/2
+        }else if xd < -ww/2{
+            xd = -ww/2
+        }
+        if yd > ww/2{
+            yd = ww/2
+        }else if yd < -ww/2{
+            yd = -ww/2
+        }
+        if zd > ww/2{
+            zd = ww/2
+        }else if zd < -ww/2{
+            zd = -ww/2
+        }
+        //        drawBand(rectB: CGRect(x:x0,y:y0,width: ww,height: wh))
+        drawBand(rectB: CGRect(x:xMid,y:y0,width: xd,height: 10))
+        drawBand(rectB: CGRect(x:xMid,y:y0+15.0,width: yd,height: 10))
+        drawBand(rectB: CGRect(x:xMid,y:y0+30.0,width: zd,height: 10))
+    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        ww=receiveDataImage.frame.size.width// view.bounds.width
+        wh=receiveDataImage.frame.size.height// view.bounds.height
+        x0=receiveDataImage.frame.minX// .origin.x
+        y0=receiveDataImage.frame.minY// origin.y
+        xMid=x0+ww/2
+    }
 }
 
 extension ReceiveViewController: MCSessionDelegate {
@@ -109,20 +126,22 @@ extension ReceiveViewController: MCSessionDelegate {
     func dispDirection(x:Double,y:Double,z:Double)->String{
         let limit:CGFloat=3*3
         var str:String = " "
-        if x*x+y*y>limit && x*x+y*y>z*z{
-            if x>0.5 && y>0.5 {//右後
+        if y*y>x*x+z*z && y*y>limit{//
+            if y>0{//left
                 str = "1"
-            }else if x < -0.5 && y < -0.5{//左前
+            }else{//right
                 str = "2"
-            }else if x < -0.5 && y > 0.5{//右前
-                str = "3"
-            }else if x > 0.5 && y < -0.5{//左後
-                str = "4"
             }
-        }else if z*z > limit && z>0.5{//左
-            str = "5"
-        }else if z*z > limit && z < -0.5{//右
-            str = "6"
+        }else if y*y<x*x+z*z && x*x+z*z>limit{
+            if x<0 && z>0{//right back
+                str = "3"
+            }else if x>0 && z<0{//left front
+                str = "4"
+            }else if x>0 && z>0{//right front
+                str = "5"
+            }else if x<0 && z<0{//left back
+                str = "6"
+            }
         }
         return str
     }
@@ -139,6 +158,7 @@ extension ReceiveViewController: MCSessionDelegate {
                 let doubleX = Double(str1[1])
                 let doubleY = Double(str0[1])
                 let doubleZ = Double(str0[2])
+                drawReceiveData(x: doubleX!, y: doubleY!, z: doubleZ!)
                 targetLabel.text=dispDirection(x: doubleX!, y: doubleY!, z: doubleZ!)
 //                if doubleX! < 0{
 //                    receivingDataLabel.textColor = UIColor.red
@@ -147,7 +167,7 @@ extension ReceiveViewController: MCSessionDelegate {
 //                }
 //                let str = String(format: "%.2f,%.2f,%.2f",doubleX!,doubleY!,doubleZ!)
 ////                print(str)
-                receivingDataLabel.text = message
+//                receivingDataLabel.text = message
             })
         }
     }
