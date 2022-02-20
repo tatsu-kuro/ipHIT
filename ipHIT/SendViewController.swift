@@ -105,65 +105,22 @@ final class SendViewController: /*UITable*/UIViewController {
    
          motionManager.startDeviceMotionUpdates(to: OperationQueue.current!, withHandler: { [self] (motion, error) in
              guard let motion = motion, error == nil else { return }
-
-//             var xf="-"
-//             var yf="-"
-//             var zf="-"
-             var x=motion.rotationRate.x
-             var y=motion.rotationRate.y
-             var z=motion.rotationRate.z
+             let x=motion.rotationRate.x
+             let y=motion.rotationRate.y
+             let z=motion.rotationRate.z
              drawReceiveData(x: x, y: y, z: z)
-//             if motion.rotationRate.x >= 0{
-//                 xf="  "
-//             }
-//             if motion.rotationRate.y >= 0{
-//                 yf="  "
-//             }
-//             if motion.rotationRate.z >= 0{
-//                 zf="  "
-//             }
-//             x=abs(x)
-//             y=abs(y)
-//             z=abs(z)
+
              let time=CFAbsoluteTimeGetCurrent()-recordStart
              let str = String(format: "%04.3fsec:%.2f,%.2f,%.2f", time,x,y,z)
-
-//             let str = String(format: "%04.3fsec:%@%.2f,%@%.2f,%@%.2f", time,xf,x,yf,y,zf,z)
-//             let str = String(format: "%.2fs:%.2f,%.2f,%.2f",time,motion.rotationRate.x,motion.rotationRate.y,motion.rotationRate.z)
-//             sendingDataLabel.text = str
-             
-//             let str = String(format:"%04d-%.2f: %.2f,%.2f,%.2f",count,CFAbsoluteTimeGetCurrent()-recordStart,motion.rotationRate.x,motion.rotationRate.y,motion.rotationRate.z)
              do{
                  try session.send(str.data(using: .utf8)!,toPeers: session.connectedPeers,with: .reliable)
                  print(str)
-//                 sendingDataLabel.text = str
 
              }catch let error{
                  print(error.localizedDescription)
              }
-//             if self.recordStart == 0{
-//                 self.gyro.append(0)//CFAbsoluteTimeGetCurrent())
-//             }else{
-//                 self.gyro.append(CFAbsoluteTimeGetCurrent()-self.recordStart)
-//             }
-//             self.gyro.append(motion.rotationRate.y)//holizontal
-//             self.gyro.append(-motion.rotationRate.x*1.414)//verticalは４５度ズレているので、√２
          })
      }
-//    self.gyro.append(CFAbsoluteTimeGetCurrent()-self.recStart)
-
-//    motionManager.stopDeviceMotionUpdates()//ここで止めたが良さそう。
-
- //    return String(format: "%.2f,%.2f,%.2f",x,y,z)
-//    @objc private func sendMessage(_ sender: Any) {
-//        let message = "\(session.myPeerID.displayName)からのメッセージ"
-//        do {
-//            try session.send(message.data(using: .utf8)!, toPeers: session.connectedPeers, with: .reliable)
-//            print(message)
-//        } catch let error {
-//            print(error.localizedDescription)
-//        }
-//    }
 }
 
 extension SendViewController: MCSessionDelegate {

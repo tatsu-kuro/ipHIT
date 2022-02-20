@@ -18,8 +18,7 @@ class ReceiveViewController: UIViewController {
     @IBOutlet weak var didChangeLabel: UILabel!
     @IBOutlet weak var receivingDataLabel: UILabel!
     private var messages = [String]()
-//    let motionManager = CMMotionManager()
-//    var recordStart:Double=0// = CFAbsoluteTimeGetCurrent()
+
     private let serviceType = "ipHIT"
     private var session: MCSession!
     private var advertiser: MCNearbyServiceAdvertiser!
@@ -160,14 +159,6 @@ extension ReceiveViewController: MCSessionDelegate {
                 let doubleZ = Double(str0[2])
                 drawReceiveData(x: doubleX!, y: doubleY!, z: doubleZ!)
                 targetLabel.text=dispDirection(x: doubleX!, y: doubleY!, z: doubleZ!)
-//                if doubleX! < 0{
-//                    receivingDataLabel.textColor = UIColor.red
-//                }else{
-//                    receivingDataLabel.textColor = UIColor.black
-//                }
-//                let str = String(format: "%.2f,%.2f,%.2f",doubleX!,doubleY!,doubleZ!)
-////                print(str)
-//                receivingDataLabel.text = message
             })
         }
     }
