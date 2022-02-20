@@ -13,6 +13,7 @@ import CoreMotion
 //    final class SendViewController: /*UITable*/UIViewController {
 class ReceiveViewController: UIViewController {
     
+    @IBOutlet weak var targetLabel: UILabel!
     @IBOutlet weak var didChangeLabel: UILabel!
     @IBOutlet weak var receivingDataLabel: UILabel!
     private var messages = [String]()
@@ -105,16 +106,47 @@ extension ReceiveViewController: MCSessionDelegate {
             self.didChangeLabel.text = message
         }
     }
-    
+    func dispDirection(x:Double,y:Double,z:Double)->String{
+        let limit:CGFloat=3*3
+        var str:String = " "
+        if x*x+y*y>limit && x*x+y*y>z*z{
+            if x>0.5 && y>0.5 {//右後
+                str = "1"
+            }else if x < -0.5 && y < -0.5{//左前
+                str = "2"
+            }else if x < -0.5 && y > 0.5{//右前
+                str = "3"
+            }else if x > 0.5 && y < -0.5{//左後
+                str = "4"
+            }
+        }else if z*z > limit && z>0.5{//左
+            str = "5"
+        }else if z*z > limit && z < -0.5{//右
+            str = "6"
+        }
+        return str
+    }
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         guard let message = String(data: data, encoding: .utf8) else {
             return
         }
         DispatchQueue.main.async { [self] in
-            print(message)
+            print(message)// = String(format: "%04.3fsec:%.2f,%.2f,%.2f", time,x,y,z)
+
             OperationQueue.main.addOperation({
-                // UI の更新処理を記述する
-                print(message)
+                let str0 = message.components(separatedBy: ",")
+                let str1 = str0[0].components(separatedBy: "sec:")
+                let doubleX = Double(str1[1])
+                let doubleY = Double(str0[1])
+                let doubleZ = Double(str0[2])
+                targetLabel.text=dispDirection(x: doubleX!, y: doubleY!, z: doubleZ!)
+//                if doubleX! < 0{
+//                    receivingDataLabel.textColor = UIColor.red
+//                }else{
+//                    receivingDataLabel.textColor = UIColor.black
+//                }
+//                let str = String(format: "%.2f,%.2f,%.2f",doubleX!,doubleY!,doubleZ!)
+////                print(str)
                 receivingDataLabel.text = message
             })
         }

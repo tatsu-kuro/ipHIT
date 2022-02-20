@@ -60,6 +60,7 @@ final class SendViewController: /*UITable*/UIViewController {
              var x=motion.rotationRate.x
              var y=motion.rotationRate.y
              var z=motion.rotationRate.z
+
 //             if motion.rotationRate.x >= 0{
 //                 xf="  "
 //             }
