@@ -15,6 +15,8 @@ class ViewController: UIViewController {
     }
 
     @IBAction func unwind(_ segue: UIStoryboardSegue) {
+        print ("unwind")
+        UIApplication.shared.isIdleTimerDisabled = false//スリープする
     }
 }
 
