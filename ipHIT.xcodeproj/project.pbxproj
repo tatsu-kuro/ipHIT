@@ -62,15 +62,15 @@
 		69A6E66927BBF060009059CE /* ipHIT */ = {
 			isa = PBXGroup;
 			children = (
-				69A6E67E27BBF08B009059CE /* SendViewController.swift */,
-				691DDE5727C1CC4900040BD6 /* kazu1.png */,
 				69A6E66A27BBF060009059CE /* AppDelegate.swift */,
 				69A6E66C27BBF060009059CE /* SceneDelegate.swift */,
+				69A6E67E27BBF08B009059CE /* SendViewController.swift */,
+				69A6E68027BC64AA009059CE /* ReceiveViewController.swift */,
 				69A6E66E27BBF060009059CE /* ViewController.swift */,
 				69A6E67027BBF060009059CE /* Main.storyboard */,
-				69A6E68027BC64AA009059CE /* ReceiveViewController.swift */,
 				69A6E67327BBF062009059CE /* Assets.xcassets */,
 				69A6E67527BBF062009059CE /* LaunchScreen.storyboard */,
+				691DDE5727C1CC4900040BD6 /* kazu1.png */,
 				69A6E67827BBF062009059CE /* Info.plist */,
 			);
 			path = ipHIT;

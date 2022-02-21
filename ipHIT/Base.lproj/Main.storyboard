@@ -26,7 +26,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qx6-hL-8q7">
-                                <rect key="frame" x="10" y="64" width="384" height="40"/>
+                                <rect key="frame" x="10" y="54" width="384" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="IqH-fe-Fj5"/>
                                 </constraints>
@@ -52,7 +52,7 @@
                         <viewLayoutGuide key="safeArea" id="43Q-Xn-7C2"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="qx6-hL-8q7" firstAttribute="top" secondItem="43Q-Xn-7C2" secondAttribute="top" constant="20" id="1Vx-Ru-Yyv"/>
+                            <constraint firstItem="qx6-hL-8q7" firstAttribute="top" secondItem="43Q-Xn-7C2" secondAttribute="top" constant="10" id="1Vx-Ru-Yyv"/>
                             <constraint firstItem="43Q-Xn-7C2" firstAttribute="bottom" secondItem="VHR-KX-X1p" secondAttribute="bottom" constant="20" id="24Q-8A-NUb"/>
                             <constraint firstItem="noR-GY-oFw" firstAttribute="leading" secondItem="43Q-Xn-7C2" secondAttribute="leading" constant="10" id="5lx-Ux-0Zj"/>
                             <constraint firstItem="43Q-Xn-7C2" firstAttribute="trailing" secondItem="VHR-KX-X1p" secondAttribute="trailing" constant="20" id="LHp-3R-Zo8"/>
@@ -164,7 +164,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Receive" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qsv-Wt-5kb">
-                                <rect key="frame" x="10" y="64" width="384" height="40"/>
+                                <rect key="frame" x="10" y="54" width="384" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="X6r-SG-YUw"/>
                                 </constraints>
@@ -196,7 +196,7 @@
                             <constraint firstItem="FdR-HW-WGM" firstAttribute="trailing" secondItem="HC1-jP-qfu" secondAttribute="trailing" constant="20" id="5qc-t7-mJt"/>
                             <constraint firstItem="FdR-HW-WGM" firstAttribute="bottom" secondItem="HC1-jP-qfu" secondAttribute="bottom" constant="20" id="Gb8-iQ-Xdl"/>
                             <constraint firstItem="FdR-HW-WGM" firstAttribute="trailing" secondItem="JZt-4u-f6K" secondAttribute="trailing" constant="10" id="He2-Uz-53d"/>
-                            <constraint firstItem="Qsv-Wt-5kb" firstAttribute="top" secondItem="FdR-HW-WGM" secondAttribute="top" constant="20" id="Io2-kf-rTo"/>
+                            <constraint firstItem="Qsv-Wt-5kb" firstAttribute="top" secondItem="FdR-HW-WGM" secondAttribute="top" constant="10" id="Io2-kf-rTo"/>
                             <constraint firstItem="JZt-4u-f6K" firstAttribute="leading" secondItem="FdR-HW-WGM" secondAttribute="leading" constant="10" id="PTp-Ti-y0d"/>
                             <constraint firstItem="FdR-HW-WGM" firstAttribute="trailing" secondItem="1Xj-VF-UeP" secondAttribute="trailing" constant="10" id="ZOM-0I-OET"/>
                             <constraint firstItem="d3I-28-lEh" firstAttribute="leading" secondItem="FdR-HW-WGM" secondAttribute="leading" constant="20" id="a1b-b3-hPh"/>
