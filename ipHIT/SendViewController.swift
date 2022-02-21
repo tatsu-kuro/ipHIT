@@ -110,8 +110,9 @@ final class SendViewController: /*UITable*/UIViewController {
              let z=motion.rotationRate.z
              drawReceiveData(x: x, y: y, z: z)
 
-             let time=CFAbsoluteTimeGetCurrent()-recordStart
-             let str = String(format: "%04.3fsec:%.2f,%.2f,%.2f", time,x,y,z)
+//             let time=CFAbsoluteTimeGetCurrent()-recordStart
+//             let str = String(format: "%04.3f,%.2f,%.2f,%.2f", time,x,y,z)
+             let str = String(format: "%.2f,%.2f,%.2f", x,y,z)
              do{
                  try session.send(str.data(using: .utf8)!,toPeers: session.connectedPeers,with: .reliable)
                  print(str)

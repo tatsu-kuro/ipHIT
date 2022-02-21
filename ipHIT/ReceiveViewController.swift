@@ -17,8 +17,12 @@ class ReceiveViewController: UIViewController {
     @IBOutlet weak var targetLabel: UILabel!
     @IBOutlet weak var didChangeLabel: UILabel!
     @IBOutlet weak var receivingDataLabel: UILabel!
-    private var messages = [String]()
-
+//    private var messages = [String]()
+//    var messages = [String]()
+//    var messages: Array<String> = [ "0,0,0,0" ,"0,0,0,0" ,"0,0,0,0" ,"0,0,0,0" ,"0,0,0,0" ]
+//    var mess: Array<String> = [ "0,0,0,0" ,"0,0,0,0" ,"0,0,0,0" ,"0,0,0,0" ,"0,0,0,0" ]
+    
+    var timer:Timer?
     private let serviceType = "ipHIT"
     private var session: MCSession!
     private var advertiser: MCNearbyServiceAdvertiser!
@@ -40,8 +44,32 @@ class ReceiveViewController: UIViewController {
 
         browser.startBrowsingForPeers()
         drawCount=0
+     
+//        timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(self.updateReceive), userInfo: nil, repeats: true)
     }
-    
+
+//    @objc func updateReceive(tm: Timer) {
+//        while savingFlag==true{
+//            sleep(UInt32(0.1))
+//        }
+//        for i in 0..<5{
+//            mess[i] = messages[i]
+//        }
+//        var maxI:Int=0
+//        var maxD:Double=0
+//        for i in 0..<5{//find max-time(the latest time)
+//            let str = mess[i].components(separatedBy: ",")
+//            if Double(str[0])!>maxD{
+//                maxD=Double(str[0])!
+//                maxI=i
+//            }
+//        }
+//        let str = mess[maxI].components(separatedBy: ",")
+//        let x=Double(str[1])
+//        let y=Double(str[2])
+//        let z=Double(str[3])
+//        drawReceiveData(x: x!, y: y!, z: z!)
+//    }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         // たまに切れない時があるのでここで切断
@@ -103,7 +131,8 @@ class ReceiveViewController: UIViewController {
         xMid=x0+ww/2
     }
 }
-
+//var receiveCount:Int=10
+//var savingFlag:Bool=false
 extension ReceiveViewController: MCSessionDelegate {
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
         let message: String
@@ -144,19 +173,22 @@ extension ReceiveViewController: MCSessionDelegate {
         }
         return str
     }
-    func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
+      func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         guard let message = String(data: data, encoding: .utf8) else {
             return
         }
         DispatchQueue.main.async { [self] in
-            print(message)// = String(format: "%04.3fsec:%.2f,%.2f,%.2f", time,x,y,z)
-
+            print(message)// = String(format: "%.2f,%.2f,%.2f", x,y,z)
+//            print(message)// = String(format: "%04.3f,%.2f,%.2f,%.2f", time,x,y,z)
+//            receiveCount += 1
+//            savingFlag=true
+//            messages[receiveCount%5]=message
+//            savingFlag=false
             OperationQueue.main.addOperation({
-                let str0 = message.components(separatedBy: ",")
-                let str1 = str0[0].components(separatedBy: "sec:")
-                let doubleX = Double(str1[1])
-                let doubleY = Double(str0[1])
-                let doubleZ = Double(str0[2])
+                let str = message.components(separatedBy: ",")
+                let doubleX = Double(str[0])
+                let doubleY = Double(str[1])
+                let doubleZ = Double(str[2])
                 drawReceiveData(x: doubleX!, y: doubleY!, z: doubleZ!)
                 targetLabel.text=dispDirection(x: doubleX!, y: doubleY!, z: doubleZ!)
             })
