@@ -3,9 +3,12 @@
 <plist version="1.0">
 <dict>
 	<key>UIUserInterfaceStyle</key>
-	<string>light</string>
-	<key>NSLocalNetworkUsageDescription</key>
-	<string>transport_motionsencerData</string>
+	<string>Light</string>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_ipHIT._tcp</string>
+		<string>_ipHIT._udp</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -25,10 +28,5 @@
 			</array>
 		</dict>
 	</dict>
-	<key>NSBonjourServices</key>
-	<array>
-		<string>_ipHIT._tcp</string>
-		<string>_ipHIT._udp</string>
-	</array>
 </dict>
 </plist>
