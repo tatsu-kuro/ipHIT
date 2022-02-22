@@ -41,10 +41,15 @@ class ReceiveViewController: UIViewController {
         browser = MCNearbyServiceBrowser(peer: peerID, serviceType: serviceType)
         browser.delegate = self
         receivingDataLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 15, weight: .medium)
-
+        
         browser.startBrowsingForPeers()
         drawCount=0
      
+        let vc = MCBrowserViewController(serviceType: serviceType, session: session)
+        // 接続端末を１台に制限
+        vc.maximumNumberOfPeers = 2
+        
+        
 //        timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(self.updateReceive), userInfo: nil, repeats: true)
     }
 
@@ -138,13 +143,13 @@ extension ReceiveViewController: MCSessionDelegate {
         let message: String
         switch state {
         case .connected:
-            message = "Receive \(peerID.displayName) /connected."
+            message = "\(peerID.displayName) /connected."
         case .connecting:
-            message = "Receive \(peerID.displayName) /connecting."
+            message = "\(peerID.displayName) /connecting."
         case .notConnected:
-            message = "Receive \(peerID.displayName) /notConnected."
+            message = "\(peerID.displayName) /notConnected."
         @unknown default:
-            message = "Receive \(peerID.displayName) /default."
+            message = "\(peerID.displayName) /default."
         }
         DispatchQueue.main.async {
 //            print(message)

@@ -11,15 +11,16 @@ import CoreMotion
 final class SendViewController: /*UITable*/UIViewController {
     @IBOutlet weak var didChangeLabel: UILabel!
     
+    @IBOutlet weak var exitButton: UIButton!
     @IBOutlet weak var sendingDataLabel: UILabel!
     private var messages = [String]()
     let motionManager = CMMotionManager()
-    var recordStart = CFAbsoluteTimeGetCurrent()
+//    var recordStart = CFAbsoluteTimeGetCurrent()
     private let serviceType = "ipHIT"
     private var session: MCSession!
     private var advertiser: MCNearbyServiceAdvertiser!
     private var browser: MCNearbyServiceBrowser!
-
+//    var sessionState:Bool = false //1:connected 2:not connected
     override func viewDidLoad() {
         super.viewDidLoad()
         let peerID = MCPeerID(displayName: UIDevice.current.name)
@@ -33,7 +34,11 @@ final class SendViewController: /*UITable*/UIViewController {
         browser = MCNearbyServiceBrowser(peer: peerID, serviceType: serviceType)
         browser.delegate = self
         browser.startBrowsingForPeers()
-        recordStart = CFAbsoluteTimeGetCurrent()
+        let vc = MCBrowserViewController(serviceType: serviceType, session: session)
+        // 接続端末を１台に制限
+        vc.maximumNumberOfPeers = 2
+
+//        recordStart = CFAbsoluteTimeGetCurrent()
         sendingDataLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 15, weight: .medium)
         setMotion()
     }
@@ -46,6 +51,7 @@ final class SendViewController: /*UITable*/UIViewController {
         advertiser.stopAdvertisingPeer()
         session.disconnect()
     }
+  
     func drawBand(rectB: CGRect) {
         let rectLayer = CAShapeLayer.init()
         rectLayer.strokeColor = UIColor.black.cgColor
@@ -115,7 +121,7 @@ final class SendViewController: /*UITable*/UIViewController {
              let str = String(format: "%.2f,%.2f,%.2f", x,y,z)
              do{
                  try session.send(str.data(using: .utf8)!,toPeers: session.connectedPeers,with: .reliable)
-                 print(str)
+//                 print(str)
 
              }catch let error{
                  print(error.localizedDescription)
@@ -127,19 +133,27 @@ final class SendViewController: /*UITable*/UIViewController {
 extension SendViewController: MCSessionDelegate {
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
         let message: String
+        var sessionState:Int = 0
         switch state {
         case .connected:
-            message = "Send \(peerID.displayName) /connected."
+            sessionState=1
+            message = "\(peerID.displayName) /connected."
         case .connecting:
-            message = "Send \(peerID.displayName) /connecting."
+            message = "\(peerID.displayName) /connecting."
         case .notConnected:
-            message = "Send \(peerID.displayName) /notConnected."
+            sessionState=0
+            message = "\(peerID.displayName) /notConnected."
         @unknown default:
-            message = "Send \(peerID.displayName) /default."
+            message = "\(peerID.displayName) /default."
         }
         DispatchQueue.main.async { [self] in
 //            print(message)
             didChangeLabel.text = message
+            if sessionState==0 && exitButton.isEnabled==false{
+                exitButton.isEnabled=true
+            }else if sessionState==1 && exitButton.isEnabled==true{
+                exitButton.isEnabled=false
+            }
         }
     }
 
