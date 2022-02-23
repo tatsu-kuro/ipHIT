@@ -143,13 +143,13 @@ extension ReceiveViewController: MCSessionDelegate {
         let message: String
         switch state {
         case .connected:
-            message = "\(peerID.displayName) /connected."
+            message = "\(peerID.displayName) / connected."
         case .connecting:
-            message = "\(peerID.displayName) /connecting."
+            message = "\(peerID.displayName) / connecting."
         case .notConnected:
-            message = "\(peerID.displayName) /notConnected."
+            message = "\(peerID.displayName) / notConnected."
         @unknown default:
-            message = "\(peerID.displayName) /default."
+            message = "\(peerID.displayName) / default."
         }
         DispatchQueue.main.async {
 //            print(message)

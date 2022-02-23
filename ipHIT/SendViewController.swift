@@ -10,6 +10,7 @@ import MultipeerConnectivity
 import CoreMotion
 final class SendViewController: /*UITable*/UIViewController {
     @IBOutlet weak var didChangeLabel: UILabel!
+    @IBOutlet weak var targetLabel: UILabel!
     
     @IBOutlet weak var exitButton: UIButton!
     @IBOutlet weak var sendingDataLabel: UILabel!
@@ -43,6 +44,11 @@ final class SendViewController: /*UITable*/UIViewController {
         setMotion()
     }
 
+    @IBAction func onExitButton(_ sender: Any) {
+        if sessionState == 0{
+        performSegue(withIdentifier: "fromSEND", sender: self)
+        }
+    }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         motionManager.stopDeviceMotionUpdates()
@@ -51,7 +57,29 @@ final class SendViewController: /*UITable*/UIViewController {
         advertiser.stopAdvertisingPeer()
         session.disconnect()
     }
-  
+    func dispDirection(x:Double,y:Double,z:Double)->String{
+        let limit:CGFloat=3*3
+        var str:String = " "
+        if y*y>x*x+z*z && y*y>limit{//
+            if y>0{//left
+                str = "1"
+            }else{//right
+                str = "2"
+            }
+        }else if y*y<x*x+z*z && x*x+z*z>limit{
+            if x<0 && z>0{//right back
+                str = "3"
+            }else if x>0 && z<0{//left front
+                str = "4"
+            }else if x>0 && z>0{//right front
+                str = "5"
+            }else if x<0 && z<0{//left back
+                str = "6"
+            }
+        }
+        return str
+    }
+    
     func drawBand(rectB: CGRect) {
         let rectLayer = CAShapeLayer.init()
         rectLayer.strokeColor = UIColor.black.cgColor
@@ -108,14 +136,15 @@ final class SendViewController: /*UITable*/UIViewController {
      func setMotion(){
          guard motionManager.isDeviceMotionAvailable else { return }
          motionManager.deviceMotionUpdateInterval = 1 / 100//が最速の模様
-   
          motionManager.startDeviceMotionUpdates(to: OperationQueue.current!, withHandler: { [self] (motion, error) in
              guard let motion = motion, error == nil else { return }
              let x=motion.rotationRate.x
              let y=motion.rotationRate.y
              let z=motion.rotationRate.z
+             OperationQueue.main.addOperation({
              drawReceiveData(x: x, y: y, z: z)
-
+             targetLabel.text=dispDirection(x: x, y: y, z: z)
+             })
 //             let time=CFAbsoluteTimeGetCurrent()-recordStart
 //             let str = String(format: "%04.3f,%.2f,%.2f,%.2f", time,x,y,z)
              let str = String(format: "%.2f,%.2f,%.2f", x,y,z)
@@ -130,40 +159,43 @@ final class SendViewController: /*UITable*/UIViewController {
      }
 }
 
+var sessionState:Int = 0
 extension SendViewController: MCSessionDelegate {
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
         let message: String
-        var sessionState:Int = 0
-        switch state {
+         switch state {
         case .connected:
             sessionState=1
-            message = "\(peerID.displayName) /connected."
+            message = "\(peerID.displayName) / connected."
         case .connecting:
-            message = "\(peerID.displayName) /connecting."
+            message = "\(peerID.displayName) / connecting."
         case .notConnected:
             sessionState=0
-            message = "\(peerID.displayName) /notConnected."
+            message = "\(peerID.displayName) / notConnected."
         @unknown default:
-            message = "\(peerID.displayName) /default."
+            message = "\(peerID.displayName) / default."
         }
         DispatchQueue.main.async { [self] in
 //            print(message)
             didChangeLabel.text = message
-            if sessionState==0 && exitButton.isEnabled==false{
-                exitButton.isEnabled=true
-            }else if sessionState==1 && exitButton.isEnabled==true{
-                exitButton.isEnabled=false
+            if sessionState==0{//} && exitButton.isEnabled==false{
+//                exitButton.isEnabled=true
+                exitButton.alpha=1
+            }else if sessionState==1{//} && exitButton.isEnabled==true{
+//                exitButton.isEnabled=false
+//                exitButton.isHighlighted=true
+                exitButton.alpha=0.3
             }
         }
     }
 
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-        guard let message = String(data: data, encoding: .utf8) else {
-            return
-        }
-        DispatchQueue.main.async {
-            print(message)
-        }
+//        guard let message = String(data: data, encoding: .utf8) else {
+//            return
+//        }
+//        DispatchQueue.main.async {
+//            print(message)
+//        }
     }
 
     func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
