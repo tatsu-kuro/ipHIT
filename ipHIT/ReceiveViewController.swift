@@ -13,21 +13,15 @@ import CoreMotion
 //    final class SendViewController: /*UITable*/UIViewController {
 class ReceiveViewController: UIViewController {
     
-    @IBOutlet weak var receiveDataImage: UIImageView!
     @IBOutlet weak var targetLabel: UILabel!
     @IBOutlet weak var didChangeLabel: UILabel!
     @IBOutlet weak var receivingDataLabel: UILabel!
-//    private var messages = [String]()
-//    var messages = [String]()
-//    var messages: Array<String> = [ "0,0,0,0" ,"0,0,0,0" ,"0,0,0,0" ,"0,0,0,0" ,"0,0,0,0" ]
-//    var mess: Array<String> = [ "0,0,0,0" ,"0,0,0,0" ,"0,0,0,0" ,"0,0,0,0" ,"0,0,0,0" ]
     
     var timer:Timer?
     private let serviceType = "ipHIT"
     private var session: MCSession!
     private var advertiser: MCNearbyServiceAdvertiser!
     private var browser: MCNearbyServiceBrowser!
-    var receiveDataImageRect:CGRect!
     override func viewDidLoad() {
         super.viewDidLoad()
         let peerID = MCPeerID(displayName: UIDevice.current.name)
@@ -40,41 +34,15 @@ class ReceiveViewController: UIViewController {
         
         browser = MCNearbyServiceBrowser(peer: peerID, serviceType: serviceType)
         browser.delegate = self
-        receivingDataLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 15, weight: .medium)
         
         browser.startBrowsingForPeers()
         drawCount=0
-     
+        
         let vc = MCBrowserViewController(serviceType: serviceType, session: session)
         // 接続端末を１台に制限
         vc.maximumNumberOfPeers = 2
-        
-        
-//        timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(self.updateReceive), userInfo: nil, repeats: true)
     }
-
-//    @objc func updateReceive(tm: Timer) {
-//        while savingFlag==true{
-//            sleep(UInt32(0.1))
-//        }
-//        for i in 0..<5{
-//            mess[i] = messages[i]
-//        }
-//        var maxI:Int=0
-//        var maxD:Double=0
-//        for i in 0..<5{//find max-time(the latest time)
-//            let str = mess[i].components(separatedBy: ",")
-//            if Double(str[0])!>maxD{
-//                maxD=Double(str[0])!
-//                maxI=i
-//            }
-//        }
-//        let str = mess[maxI].components(separatedBy: ",")
-//        let x=Double(str[1])
-//        let y=Double(str[2])
-//        let z=Double(str[3])
-//        drawReceiveData(x: x!, y: y!, z: z!)
-//    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         // たまに切れない時があるのでここで切断
@@ -122,22 +90,21 @@ class ReceiveViewController: UIViewController {
         }else if zd < -ww/2{
             zd = -ww/2
         }
-        //        drawBand(rectB: CGRect(x:x0,y:y0,width: ww,height: wh))
         drawBand(rectB: CGRect(x:xMid,y:y0,width: xd,height: 10))
         drawBand(rectB: CGRect(x:xMid,y:y0+15.0,width: yd,height: 10))
         drawBand(rectB: CGRect(x:xMid,y:y0+30.0,width: zd,height: 10))
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        ww=receiveDataImage.frame.size.width// view.bounds.width
-        wh=receiveDataImage.frame.size.height// view.bounds.height
-        x0=receiveDataImage.frame.minX// .origin.x
-        y0=receiveDataImage.frame.minY// origin.y
+        ww=receivingDataLabel.frame.size.width// view.bounds.width
+        wh=receivingDataLabel.frame.size.height// view.bounds.height
+        x0=receivingDataLabel.frame.minX// .origin.x
+        y0=receivingDataLabel.frame.minY// origin.y
+
         xMid=x0+ww/2
     }
 }
-//var receiveCount:Int=10
-//var savingFlag:Bool=false
+
 extension ReceiveViewController: MCSessionDelegate {
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
         let message: String
@@ -184,11 +151,6 @@ extension ReceiveViewController: MCSessionDelegate {
         }
         DispatchQueue.main.async { [self] in
             print(message)// = String(format: "%.2f,%.2f,%.2f", x,y,z)
-//            print(message)// = String(format: "%04.3f,%.2f,%.2f,%.2f", time,x,y,z)
-//            receiveCount += 1
-//            savingFlag=true
-//            messages[receiveCount%5]=message
-//            savingFlag=false
             OperationQueue.main.addOperation({
                 let str = message.components(separatedBy: ",")
                 let doubleX = Double(str[0])

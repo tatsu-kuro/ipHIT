@@ -45,7 +45,7 @@
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Exit">
-                                    <fontDescription key="titleFontDescription" type="system" pointSize="15"/>
+                                    <fontDescription key="titleFontDescription" type="system" pointSize="17"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="onExitButton:" destination="iOH-G0-YAs" eventType="touchUpInside" id="3ox-B8-9hq"/>
@@ -130,7 +130,7 @@
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Send">
-                                    <fontDescription key="titleFontDescription" type="system" pointSize="10"/>
+                                    <fontDescription key="titleFontDescription" type="system" pointSize="17"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <segue destination="iOH-G0-YAs" kind="show" id="UhL-fh-lwX"/>
@@ -146,7 +146,7 @@
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Receive">
-                                    <fontDescription key="titleFontDescription" type="system" pointSize="9"/>
+                                    <fontDescription key="titleFontDescription" type="system" pointSize="17"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <segue destination="FVB-YW-LEp" kind="show" id="V9Z-4o-fVP"/>
@@ -199,15 +199,6 @@
                                     <segue destination="ta7-sc-3UB" kind="unwind" unwindAction="unwind:" id="otX-6q-HLJ"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Xj-VF-UeP">
-                                <rect key="frame" x="10" y="752" width="394" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="fFw-Qs-ZIE"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qsv-Wt-5kb">
                                 <rect key="frame" x="10" y="54" width="384" height="40"/>
                                 <constraints>
@@ -226,12 +217,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="d3I-28-lEh">
-                                <rect key="frame" x="130" y="802" width="154" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="dVV-8T-J6R"/>
-                                </constraints>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Receive" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IEP-mL-3Qx">
                                 <rect key="frame" x="20" y="802" width="100" height="40"/>
                                 <color key="backgroundColor" systemColor="systemOrangeColor"/>
@@ -243,32 +228,37 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Xj-VF-UeP">
+                                <rect key="frame" x="130" y="802" width="154" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="aso-5L-Re4"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="FdR-HW-WGM"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="FdR-HW-WGM" firstAttribute="bottom" secondItem="1Xj-VF-UeP" secondAttribute="bottom" constant="20" id="0lC-gs-kdI"/>
                             <constraint firstItem="Qsv-Wt-5kb" firstAttribute="leading" secondItem="FdR-HW-WGM" secondAttribute="leading" constant="10" id="1Li-vT-Q28"/>
+                            <constraint firstItem="1Xj-VF-UeP" firstAttribute="leading" secondItem="IEP-mL-3Qx" secondAttribute="trailing" constant="10" id="4vH-Xu-nLj"/>
                             <constraint firstItem="FdR-HW-WGM" firstAttribute="trailing" secondItem="HC1-jP-qfu" secondAttribute="trailing" constant="20" id="5qc-t7-mJt"/>
                             <constraint firstItem="FdR-HW-WGM" firstAttribute="bottom" secondItem="IEP-mL-3Qx" secondAttribute="bottom" constant="20" id="EEC-xz-pBf"/>
                             <constraint firstItem="FdR-HW-WGM" firstAttribute="bottom" secondItem="HC1-jP-qfu" secondAttribute="bottom" constant="20" id="Gb8-iQ-Xdl"/>
                             <constraint firstItem="FdR-HW-WGM" firstAttribute="trailing" secondItem="JZt-4u-f6K" secondAttribute="trailing" constant="10" id="He2-Uz-53d"/>
                             <constraint firstItem="Qsv-Wt-5kb" firstAttribute="top" secondItem="FdR-HW-WGM" secondAttribute="top" constant="10" id="Io2-kf-rTo"/>
-                            <constraint firstItem="FdR-HW-WGM" firstAttribute="bottom" secondItem="d3I-28-lEh" secondAttribute="bottom" constant="20" id="MrM-7b-3f6"/>
+                            <constraint firstItem="HC1-jP-qfu" firstAttribute="leading" secondItem="1Xj-VF-UeP" secondAttribute="trailing" constant="10" id="PJc-uv-KsB"/>
                             <constraint firstItem="JZt-4u-f6K" firstAttribute="leading" secondItem="FdR-HW-WGM" secondAttribute="leading" constant="10" id="PTp-Ti-y0d"/>
-                            <constraint firstItem="d3I-28-lEh" firstAttribute="leading" secondItem="IEP-mL-3Qx" secondAttribute="trailing" constant="10" id="STU-Ge-ye1"/>
-                            <constraint firstItem="FdR-HW-WGM" firstAttribute="trailing" secondItem="1Xj-VF-UeP" secondAttribute="trailing" constant="10" id="ZOM-0I-OET"/>
-                            <constraint firstItem="HC1-jP-qfu" firstAttribute="top" secondItem="1Xj-VF-UeP" secondAttribute="bottom" constant="10" id="bcX-9e-Nqe"/>
                             <constraint firstItem="IEP-mL-3Qx" firstAttribute="leading" secondItem="FdR-HW-WGM" secondAttribute="leading" constant="20" id="k8j-kz-LuL"/>
                             <constraint firstItem="FdR-HW-WGM" firstAttribute="trailing" secondItem="Qsv-Wt-5kb" secondAttribute="trailing" constant="20" id="ocU-PL-aP3"/>
                             <constraint firstItem="JZt-4u-f6K" firstAttribute="centerY" secondItem="taB-xA-fDC" secondAttribute="centerY" id="wFZ-qG-Rb1"/>
-                            <constraint firstItem="HC1-jP-qfu" firstAttribute="leading" secondItem="d3I-28-lEh" secondAttribute="trailing" constant="10" id="xQd-pf-czE"/>
-                            <constraint firstItem="1Xj-VF-UeP" firstAttribute="leading" secondItem="FdR-HW-WGM" secondAttribute="leading" constant="10" id="yaq-7j-TXq"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="pq0-S2-ag8"/>
                     <connections>
                         <outlet property="didChangeLabel" destination="Qsv-Wt-5kb" id="Wkz-Nv-NJY"/>
-                        <outlet property="receiveDataImage" destination="d3I-28-lEh" id="ND4-Gt-KGi"/>
                         <outlet property="receivingDataLabel" destination="1Xj-VF-UeP" id="9r9-BG-MV6"/>
                         <outlet property="targetLabel" destination="JZt-4u-f6K" id="hmJ-Se-H4B"/>
                     </connections>

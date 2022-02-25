@@ -14,14 +14,12 @@ final class SendViewController: /*UITable*/UIViewController {
     
     @IBOutlet weak var exitButton: UIButton!
     @IBOutlet weak var sendingDataLabel: UILabel!
-    private var messages = [String]()
     let motionManager = CMMotionManager()
 //    var recordStart = CFAbsoluteTimeGetCurrent()
     private let serviceType = "ipHIT"
     private var session: MCSession!
     private var advertiser: MCNearbyServiceAdvertiser!
     private var browser: MCNearbyServiceBrowser!
-//    var sessionState:Bool = false //1:connected 2:not connected
     override func viewDidLoad() {
         super.viewDidLoad()
         let peerID = MCPeerID(displayName: UIDevice.current.name)
@@ -38,9 +36,6 @@ final class SendViewController: /*UITable*/UIViewController {
         let vc = MCBrowserViewController(serviceType: serviceType, session: session)
         // 接続端末を１台に制限
         vc.maximumNumberOfPeers = 2
-
-//        recordStart = CFAbsoluteTimeGetCurrent()
-        sendingDataLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 15, weight: .medium)
         setMotion()
     }
 
@@ -145,8 +140,6 @@ final class SendViewController: /*UITable*/UIViewController {
              drawReceiveData(x: x, y: y, z: z)
              targetLabel.text=dispDirection(x: x, y: y, z: z)
              })
-//             let time=CFAbsoluteTimeGetCurrent()-recordStart
-//             let str = String(format: "%04.3f,%.2f,%.2f,%.2f", time,x,y,z)
              let str = String(format: "%.2f,%.2f,%.2f", x,y,z)
              do{
                  try session.send(str.data(using: .utf8)!,toPeers: session.connectedPeers,with: .reliable)
@@ -168,22 +161,20 @@ extension SendViewController: MCSessionDelegate {
             sessionState=1
             message = "\(peerID.displayName) / connected."
         case .connecting:
+             sessionState=1
             message = "\(peerID.displayName) / connecting."
         case .notConnected:
             sessionState=0
             message = "\(peerID.displayName) / notConnected."
         @unknown default:
+             sessionState=0
             message = "\(peerID.displayName) / default."
         }
         DispatchQueue.main.async { [self] in
-//            print(message)
             didChangeLabel.text = message
-            if sessionState==0{//} && exitButton.isEnabled==false{
-//                exitButton.isEnabled=true
+            if sessionState==0{
                 exitButton.alpha=1
-            }else if sessionState==1{//} && exitButton.isEnabled==true{
-//                exitButton.isEnabled=false
-//                exitButton.isHighlighted=true
+            }else if sessionState==1{
                 exitButton.alpha=0.3
             }
         }
